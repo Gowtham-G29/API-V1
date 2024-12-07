@@ -22,7 +22,7 @@ exports.signUp = async (req, res, next) => {
 
         //sending the welcome email for the registeration from the utils/email.js 
         const url = `${req.protocol}://${req.get('host')}/`; //replace as we want
-        console.log(url);
+        // console.log(url);
         await new Email(newUser, url).sendWelcome();
 
         //store jwt in cookie along with response
@@ -65,11 +65,11 @@ exports.login = async (req, res, next) => {
                 message: 'Please provide both email and password.'
             });
         }
-        console.log('Email received:', email);
+        // console.log('Email received:', email);
 
         // 2) Check if user exists && password is correct
         const user = await User.findOne({ email }).select('+password');
-        console.log('User found:', user);
+        // console.log('User found:', user);
 
         if (!user) {
             return res.status(401).json({
@@ -79,7 +79,7 @@ exports.login = async (req, res, next) => {
         }
 
         const correct = await user.correctPassword(password, user.password);
-        console.log('Password match:', correct);
+        ('Password match:', correct);
 
         if (!correct) {
             return res.status(401).json({
@@ -90,7 +90,7 @@ exports.login = async (req, res, next) => {
 
         // 3) If everything is ok, send token to client
         const token = signToken(user._id);
-        console.log('Generated Token:', token);
+        // console.log('Generated Token:', token);
 
         //store jwt in cookie along with response
         const cookieOptions = {
@@ -128,7 +128,7 @@ exports.protect = async function (req, res, next) {
             token = req.headers.authorization.split(' ')[1];
         }
 
-        console.log('Token:', token);
+        // console.log('Token:', token);
 
         if (!token) {
             return res.status(401).json({
@@ -139,7 +139,7 @@ exports.protect = async function (req, res, next) {
 
         //     // 2) Verify the token
         const decoded = await jwt.verify(token, process.env.JWT_SECRET); // Make sure to define JWT_SECRET in your .env
-        console.log(decoded);
+        // console.log(decoded);
 
         //     // 3) Check if the user still exists
         const currentUser = await User.findById(decoded.id);
@@ -299,11 +299,11 @@ exports.updatePassword = async (req, res, next) => {
     try {
         //1)get the user from collections
         const user = await User.findById(req.user.id).select('+password');
-        console.log('User Retrieved:', user);
+        // console.log('User Retrieved:', user);
 
         //2) check if posted currect password is correct
         if (!await user.correctPassword(req.body.passwordCurrent, user.password)) {
-            console.log('Incorrect current password.');
+            // console.log('Incorrect current password.');
             return res.status(401).json({
                 status: 'fail',
                 message: 'Incorrect current password.'
