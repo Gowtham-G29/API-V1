@@ -8,7 +8,8 @@ const helmet=require('helmet');
 const mongoSanitize=require('express-mongo-sanitize');
 const xss=require('xss-clean');
 const hpp=require('hpp');
-const compression=require('compression')
+const compression=require('compression');
+const cors=require('cors');//prevent cross origin requests
 
 // Import routers
 const tourRouter = require('./routes/tourRoutes');
@@ -24,6 +25,18 @@ app.set('views',path.join(__dirname,'views'));// used define the path need to th
 
 
 // 1) GLOBAL MIDDLEWARES
+
+//implement cors -> prevent the cross origin resourse sharing
+app.use(cors());
+//Access-control-Allow-Origin
+//api.natours.com , frontend natours.com
+// app.use(cors({
+//     origin:'https//:www.natours.com'
+// }));  // this makes only allow the specific url to make the frontend to requests
+
+app.use('*',cors()); //apply to all routes
+
+
 //set security HTTP header
 app.use(helmet()); 
 
