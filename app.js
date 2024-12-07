@@ -8,6 +8,7 @@ const helmet=require('helmet');
 const mongoSanitize=require('express-mongo-sanitize');
 const xss=require('xss-clean');
 const hpp=require('hpp');
+const compression=require('compression')
 
 // Import routers
 const tourRouter = require('./routes/tourRoutes');
@@ -59,6 +60,8 @@ app.use(hpp());
 app.use(express.static(`${__dirname}/public`)); 
 
 
+//for deployment -compress all the texts we goint to send
+app.use(compression());
 
 
 
