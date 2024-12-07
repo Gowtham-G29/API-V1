@@ -14,10 +14,10 @@ mongoose.connect(DB, {
 
 })
     .then(() => {
-        // console.log("DB connection is established");
+        console.log("DB connection is established");
     })
     .catch((err) => {
-        // console.log('ERR: ', err);
+        console.log('ERR: ', err);
     });
 
 
@@ -25,5 +25,5 @@ const app = require('./app');
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
-    // console.log(`App running on port ${port}`);
+    console.log(`App running on port ${port}`);
 });
