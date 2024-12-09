@@ -126,8 +126,6 @@ exports.getMe = async (req, res, next) => {
 //Update the current user data
 exports.updateMe = async (req, res, next) => {
 
-    // console.log(req.file);
-    // console.log(req.body);
 
     //1)create error if user Posts password data
     if (req.body.password || req.body.passwordConfirm) {

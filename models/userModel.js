@@ -108,14 +108,13 @@ userSchema.methods.createPasswordResetToken = function () {
         .update(resetToken)
         .digest('hex');
 
-    // console.log({ resetToken }, this.passwordResetToken);
     // Set the password reset token's expiration time (10 minutes from now)
     this.passwordResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
     // Return the unencrypted reset token
     return resetToken;
 };
 
-
+    
 // //reset password changed time saving middleware
 userSchema.pre('save', function (next) {
     if (!this.isModified('password') || this.isNew) return next();

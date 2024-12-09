@@ -79,7 +79,7 @@ exports.login = async (req, res, next) => {
         }
 
         const correct = await user.correctPassword(password, user.password);
-        ('Password match:', correct);
+        // ('Password match:', correct);
 
         if (!correct) {
             return res.status(401).json({
@@ -293,6 +293,7 @@ exports.resetPassword = async (req, res, next) => {
 
 
 }
+
 
 //update the current user password
 exports.updatePassword = async (req, res, next) => {
